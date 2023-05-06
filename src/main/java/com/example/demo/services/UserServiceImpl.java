@@ -50,4 +50,12 @@ public class UserServiceImpl implements UserService{
         user.setActive(false);
         userRepository.save(user);
     }
+    @Override
+    public boolean checkUser(String username, String password){
+        List<User> users = userRepository.findAllByUsernameAndPassword(username, password);
+        if(users.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

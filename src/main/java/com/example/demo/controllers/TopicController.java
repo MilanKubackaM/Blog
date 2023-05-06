@@ -28,7 +28,7 @@ public class TopicController
     }
 
 /*
- *   Not working yet, needs to be checked
+ *   TODO: Not working yet, needs to be done
  */
     @GetMapping("/user/{id}")
     public List<Topic> getTopicsByUserId(@PathVariable Long id){

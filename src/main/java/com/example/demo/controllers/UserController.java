@@ -35,6 +35,16 @@ public class UserController {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody UserCreateDTO user) {
+        boolean success = userService.checkUser(user.getUsername(), user.getPassword());
+        System.out.println("nick:" + user.getSurname() + " heslo:" + user.getPassword());
+        if(success){
+            return new ResponseEntity<>("Login success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Login Error", HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping(value="/{id}")
     public void updateUser(@RequestBody User user, @PathVariable Long id){
         userService.updateUser(id, user);
