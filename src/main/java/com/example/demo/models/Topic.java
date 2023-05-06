@@ -1,33 +1,37 @@
 package com.example.demo.models;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "topics")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+
+/*
+ *  Topic class with defined column in database table
+ */
+
 public class Topic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     private Long id;
-    @NotEmpty
     private Long userId;
-    @NotEmpty
     private String name;
-    @NotEmpty
     private String text;
 
-    public Topic(){}
-
-    public Topic(Long id, Long userId, String name, String text) {
-    /*
-     *  Assign ID and userID for testing,
-     *  delete after connecting to database
-    */
-        this.id = id;
-        this.userId = userId;
-        this.name = name;
-        this.text = text;
+/*
+ *  Using DTO for data encapsulation
+ */
+    public Topic(TopicCreateDTO topic) {
+        this.userId = topic.getUserId();
+        this.name = topic.getName();
+        this.text = topic.getText();
     }
 }

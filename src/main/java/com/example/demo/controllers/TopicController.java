@@ -1,49 +1,57 @@
 package com.example.demo.controllers;
 import com.example.demo.models.Topic;
+import com.example.demo.models.TopicCreateDTO;
 import com.example.demo.services.TopicServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
+/*
+ *   REST API mapping for handling requests of Topics
+ */
+
 @RestController
+@RequestMapping("/topics")
 public class TopicController
 {
 
     @Autowired
     private TopicServiceImpl topicService;
 
-    @RequestMapping("/topics")
+    @GetMapping
     public List<Topic> getAllTopics(){
         return topicService.getAllTopics();
     }
 
-    @RequestMapping("/topics/user/{id}")
+/*
+ *   Not working yet, needs to be checked
+ */
+    @GetMapping("/user/{id}")
     public List<Topic> getTopicsByUserId(@PathVariable Long id){
         return topicService.getTopicsByUserId(id);
     }
 
-    @RequestMapping("/topics/{id}")
+    @GetMapping("/{id}")
     public Topic getTopicById(@PathVariable Long id){
         return topicService.getTopicById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value="/topics")
-    public ResponseEntity<Topic> addTopic(@Valid @RequestBody Topic topic){
+    @PostMapping
+    public ResponseEntity<TopicCreateDTO> addTopic(@Valid @RequestBody TopicCreateDTO topic){
         topicService.addTopic(topic);
-        return new ResponseEntity<Topic>(topic, HttpStatus.CREATED);
+        return new ResponseEntity<>(topic, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value="/topics/{id}")
+    @PutMapping("/{id}")
     public void updateTopic(@RequestBody Topic topic, @PathVariable Long id){
         topicService.updateTopic(id, topic);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value="/topics/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTopic(@PathVariable Long id){
         topicService.deleteTopic(id);
     }

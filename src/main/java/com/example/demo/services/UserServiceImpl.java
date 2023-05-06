@@ -1,51 +1,53 @@
 package com.example.demo.services;
 import com.example.demo.models.User;
+import com.example.demo.models.UserCreateDTO;
+import com.example.demo.repositories.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
+/*
+ *  Method application to User Repository
+ */
 @Service
-public class UserServiceImpl {
+@AllArgsConstructor
+public class UserServiceImpl implements UserService{
 
-    //Testing data
-    private List<User> userList = new ArrayList<>(Arrays.asList(
-            new User("Peter", "Makovicky", "fesak123", "nieco@gmail.com", "heslo123", true),
-            new User("Milan", "Kuabcka", "znasisa112", "iny@gmail.com", "heslo1334", true),
-            new User("Andrea", "Nejaka", "kralovna99", "nejaky@gmail.com", "heslo12343", true)
-    ));
+    @Autowired
+    private final UserRepository userRepository;
 
+    @Override
     public List<User> getAllUsers(){
-        return userList;
+        return userRepository.findAll();
     }
-
+    @Override
     public User getUser(Long id) {
-        return userList.stream().filter(t -> t.getId().equals(id)).findFirst().get();
+        return userRepository.findAllById(id);
     }
-
-    public void addUser(User user) {
+    @Override
+    public void addUser(UserCreateDTO user) {
         user.setActive(true);
-        userList.add(user);
+        userRepository.save(new User(user));
     }
-
+    @Override
     public void updateUser(Long id, User user) {
-        for (int i = 0; i < userList.size(); i++){
-            User u = userList.get(i);
+        for (int i = 0; i < userRepository.findAll().size(); i++){
+            User u = userRepository.findAllById(id);
             if(u.getId().equals(id)){
-                userList.set(i, user);
+                userRepository.save(user);
                 return;
             }
         }
     }
 
-    //Delete will just mark up active = false (record will not be deleted from database)
+/*
+ *  Delete will just mark up active = false (record will not be deleted from database)
+ */
+    @Override
     public void deleteUser(Long id) {
-        for (User user : userList) {
-            if (Objects.equals(user.getId(), id)) {
-                user.setActive(false);
-                break;
-            }
-        }
+        User user = userRepository.findAllById(id);
+        user.setActive(false);
+        userRepository.save(user);
     }
 }

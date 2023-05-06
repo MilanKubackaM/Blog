@@ -1,14 +1,16 @@
 package com.example.demo.services;
-
 import com.example.demo.models.User;
-
+import com.example.demo.models.UserCreateDTO;
 import java.util.List;
 
+/*
+ *  User service with basic methods
+ */
 public interface UserService {
 
-    // Save a record of user
-    <S extends User> void save(S entity);
-
-    // Fin all users
-    List<User> findAll();
+    void addUser(UserCreateDTO user);
+    List<User> getAllUsers();
+    void deleteUser(Long id);
+    void updateUser(Long id, User user);
+    User getUser(Long id);
 }

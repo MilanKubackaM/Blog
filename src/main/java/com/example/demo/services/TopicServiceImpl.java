@@ -1,42 +1,44 @@
 package com.example.demo.services;
 import com.example.demo.models.Topic;
+import com.example.demo.models.TopicCreateDTO;
+import com.example.demo.repositories.TopicRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/*
+ *  Method application to Topic Repository
+ */
+
 @Service
+@AllArgsConstructor
 public class TopicServiceImpl implements TopicService{
 
-    /*
-     *  Testing data
-     */
-    private List<Topic> topicList = new ArrayList<>(Arrays.asList(
-            new Topic(1L , 11L,  "Macicky", "Existuje vela maciek, biele, cierne, male aj Velke"),
-            new Topic(2L , 12L, "Havinkovia", "Psy su najlepsie na svete!"),
-            new Topic(3L , 13L, "Vtaciky", "Papagaj je najznamejsi a zhovorcivy!")
-    ));
+    @Autowired
+    private final TopicRepository topicRepository;
 
-
+    @Override
     public List<Topic> getAllTopics() {
-        return topicList;
+        return topicRepository.findAll();
     }
-
+    @Override
     public Topic getTopicById(Long id) {
-        return topicList.stream().filter(t -> t.getId().equals(id)).findFirst().get();
+        return topicRepository.findAllById(id);
     }
-
+    @Override
     public List<Topic> getTopicsByUserId(Long id) {
         return null;
     }
 
-    public void addTopic(Topic topic) {
-
+    @Override
+    public void addTopic(TopicCreateDTO topic) {
+        topicRepository.save(new Topic(topic));
     }
-
+    @Override
     public void updateTopic(Long id, Topic topic) {
     }
-
+    @Override
     public void deleteTopic(Long id) {
     }
 }
