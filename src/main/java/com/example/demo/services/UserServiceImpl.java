@@ -7,18 +7,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserService {
-
-    // Error with @Autowired on repository, always crashing
-    //@Autowired
-    //private final UserRepository userRepository;
-
+public class UserServiceImpl {
 
     //Testing data
     private List<User> userList = new ArrayList<>(Arrays.asList(
-            new User(1L, "Peter", "Makovicky", "fesak123", "nieco@gmail.com", "heslo123", true),
-            new User(2L, "Milan", "Kuabcka", "znasisa112", "iny@gmail.com", "heslo1334", true),
-            new User(3L, "Andrea", "Nejaka", "kralovna99", "nejaky@gmail.com", "heslo12343", true)
+            new User("Peter", "Makovicky", "fesak123", "nieco@gmail.com", "heslo123", true),
+            new User("Milan", "Kuabcka", "znasisa112", "iny@gmail.com", "heslo1334", true),
+            new User("Andrea", "Nejaka", "kralovna99", "nejaky@gmail.com", "heslo12343", true)
     ));
 
     public List<User> getAllUsers(){
@@ -30,6 +25,7 @@ public class UserService {
     }
 
     public void addUser(User user) {
+        user.setActive(true);
         userList.add(user);
     }
 
@@ -43,7 +39,7 @@ public class UserService {
         }
     }
 
-    //Delete just mark up active = false (record will not be deleted from database)
+    //Delete will just mark up active = false (record will not be deleted from database)
     public void deleteUser(Long id) {
         for (User user : userList) {
             if (Objects.equals(user.getId(), id)) {

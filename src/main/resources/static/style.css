@@ -1,0 +1,15 @@
+.left, .right{
+    display: inline-block;
+    width: 45%;
+    vertical-align: top; /* align top edges of divs */
+}
+.left{
+    margin-right:  2rem;
+}
+
+
+.pageContainer{
+    top:10%;
+    margin: 1rem 2rem 0rem 2rem;
+    height: 80%;
+}
