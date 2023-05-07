@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TopicCreateDTO {
-        private Long userId;
         private String name;
         private String text;
+        private User user;
 }

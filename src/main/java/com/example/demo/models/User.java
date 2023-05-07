@@ -1,5 +1,4 @@
 package com.example.demo.models;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -8,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @Table(name = "users")
 @Entity
+@ControllerAdvice
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -36,9 +37,12 @@ public class User {
     @NotNull
     @Size(min = 6, message = "Password should be at least 6 characters")
     private String password;
+//    @ManyToOne
+//    @JoinColumn(name = "topic_id")
+//    private Topic topic;
     private boolean active;
 
-/*
+/**
  *  Using DTO for data encapsulation
  */
     public User(UserCreateDTO user){

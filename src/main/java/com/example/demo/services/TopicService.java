@@ -3,7 +3,7 @@ import com.example.demo.models.Topic;
 import com.example.demo.models.TopicCreateDTO;
 import java.util.List;
 
-/*
+/**
  *  Topic service with basic methods
  */
 
