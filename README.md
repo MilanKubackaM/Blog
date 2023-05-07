@@ -28,3 +28,5 @@
 ### Conclusion
 The task was to make a web forum using Java and since I had no experience with connecting a database in Java (only using PHP), I decided to try working with Spring for very first time. 
 While working on this project I encountered a lot of problems, from non-functional dependencies, to incorrect accesses, to frustration why code works once and not the other time. At least now I know that I have to work on myself to be able to design, create and implement a backend and frontend page in Java Spring
+![Screenshot 2023-01-12 at 10 44 45 drawio (1)](https://user-images.githubusercontent.com/82218017/236697278-bdbcb0dc-a8a0-492b-ae83-754371335eb1.png)
+
